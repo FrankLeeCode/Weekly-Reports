@@ -71,11 +71,13 @@ Evaluation  Time
 ##### Wasserstein distance
 
 对齐语义表示和视觉表示
+
 $$
 \mathcal{L}_{W1}=\inf_{\gamma\in \prod(p_{z_x}, p_{z_{a^s}})} \mathbb{E}_{(Z_x,Z_{a^s})} \sim[\|z_x-z_{a^s}\|]
 \\
 \mathcal{L}_{W2}=\inf_{\gamma\in \prod(p_{z_{\tilde{x}}}, p_{z_{a^u}})} \mathbb{E}_{(Z_{\tilde{x}},Z_{a^u})} \sim[\|z_{\tilde{x}}-z_{a^u}\|]
 $$
+
 优点：即使两个分布不重叠也能使用
 
 ##### VAE训练损失
@@ -95,18 +97,25 @@ $$
 ##### fictitious sample
 
 通过未见类的特征最终生成虚假未见类的潜在表示
+
 $$
 z_{\tilde{x}}=E_v(\tilde{x}), \ \tilde{x}=D_v(E_s(a^u))
 $$
+
 理论上通过最小化下式来训练分类器
+
 $$
 -\mathbb{E}[p_{z_x}\log q_{z_x}]-\mathbb{E}[p_{z_{\tilde{x}}}\log q_{z_{\tilde{x}}}]
 $$
+
 但是生成的样本可以有无穷种，难以确定哪一个用于训练，所以利用ZSL的不变的一面，用对应的语义表示代替视觉表示。将上式改为下式，
+
 $$
 \mathcal{L}_{cls2} = -\mathbb{E}[p_{z_{a^s}}\log q_{z_{a^s}}]-\mathbb{E}[p_{z_{a^u}}\log q_{z_{a^u}}]
 $$
+
 由于没有未见类的图像，所以只通过下式优化语义VAE
+
 $$
 \mathcal{L}_s =\mathbb{E}_{q_{\phi2}(z_{a^u}|a^u)}[\log p_{\theta_2}(a^u|z_{a^u})]-\lambda KL(q_{\phi2}(z_{a^u}|a^u)\|p(z_{a^u}))
 $$
@@ -114,10 +123,13 @@ $$
 ##### 整体训练策略
 
 第一阶段：Aligning Seen Latent Representations
+
 $$
 \mathcal{L}_1 = \mathcal{L}_{VAE}+\lambda_{cr}\mathcal{L}_{cr}+\lambda_{cls}\mathcal{L}_{cls1}+\lambda_{w}\mathcal{L}_{W1}
 $$
+
 第二阶段：Generating Fictitious Classes
+
 $$
 \mathcal{L}_2 = \lambda_{w}\mathcal{L}_{W2} + \lambda_{cls}\mathcal{L}_{cls2}+ \lambda_{s}
 $$
