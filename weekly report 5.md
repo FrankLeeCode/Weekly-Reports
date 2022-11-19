@@ -73,9 +73,9 @@ Evaluation  Time
 对齐语义表示和视觉表示
 
 $$
-\mathcal{L}_{W1}=\inf_{\gamma\in \prod(p_{z_x}, p_{z_{a^s}})} \mathbb{E}_{(Z_x,Z_{a^s})} \sim[\|z_x-z_{a^s}\|]
+\mathcal{L}_{W1}=\inf_{\gamma\in \prod(p_{z_x}, p_{z_{a^s}})} \mathbb{E}_{(Z_x,Z_{a^s})\sim\gamma} [\|z_x-z_{a^s}\|]
 \\
-\mathcal{L}_{W2}=\inf_{\gamma\in \prod(p_{z_{\tilde{x}}}, p_{z_{a^u}})} \mathbb{E}_{(Z_{\tilde{x}},Z_{a^u})} \sim[\|z_{\tilde{x}}-z_{a^u}\|]
+\mathcal{L}_{W2}=\inf_{\gamma\in \prod(p_{z_{\tilde{x}}}, p_{z_{a^u}})} \mathbb{E}_{(Z_{\tilde{x}},Z_{a^u})\sim\gamma} [\|z_{\tilde{x}}-z_{a^u}\|]
 $$
 
 优点：即使两个分布不重叠也能使用
